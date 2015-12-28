@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Kanb BIS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Kanb Web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li>@Html.ActionLink("Home", "Index", "Home")</li>-->
+                    <li class="dropdown">
+                        <a href="#About" data-toggle="dropdown" class="dropdown-toggle">About Us<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("The Bank of Zanthos Way", "Bank", "Home")</li>
+                            <li>@Html.ActionLink("Corporate Social Responsibilty", "Resposibility", "Home")</li>
+                            <li class="dropdown">
+                                <a href="#Leadership" data-toggle="dropdown" class="dropdown-toggle">Leadership <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Board of Directors","Board","Home")</li>
+                                    <li>@Html.ActionLink("Executive Management","Executive","Home")</li>
+                                    <li>@Html.ActionLink("Local Leadership","Local","Home")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Personal Banking<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Personal Checking", "Checking", "Personal")</li>
+                            <li>@Html.ActionLink("Personal Saving", "Saving", "Personal")</li>
+                            <li>@Html.ActionLink("Personal Mortgages", "Mortgages", "Personal")</li>
+                            <li>@Html.ActionLink("Personal Loans", "Loans", "Personal")</li>
+                            <li>@Html.ActionLink("Personal Banking Additional Services", "Banking", "Personal")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Business Banking<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Business Checking", "Checking", "Business")</li>
+                            <li>@Html.ActionLink("Business Loans", "Loans", "Business")</li>
+                            <li>@Html.ActionLink("Small Business Administration (SBA) Loans", "Loans", "Business")</li>
+                            <li>@Html.ActionLink("Business Banking Additional Services", "Banking", "Business")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Investors<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Corporate Information","Corporate","Investors")</li>
+                            <li>@Html.ActionLink("Stock Information", "Stock", "Investors")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("E-Banking","E-Banking","Home")</li>
+                    <li>@Html.ActionLink("News", "News", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <!--<li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle"> More...<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+                            <li>@Html.ActionLink("Accounts", "Index", "Accounts")</li>
+                            <li>@Html.ActionLink("CreditCards", "Index", "CreditCards")</li>
+                            <li>@Html.ActionLink("DebitCards", "Index", "DebitCards")</li>
+                            <li>@Html.ActionLink("Transactions", "Index", "Transactions")</li>
+                            <li>@Html.ActionLink("Transfers", "Index", "Transfers")</li>
+                        </ul>
+                    </li>-->
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <!--<div class="container body-content">-->
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Kanb BIS</p>
+        </footer>
+    <!--</div>-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

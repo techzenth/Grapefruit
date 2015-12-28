@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KanbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="AccountTypeID" Type="int" Nullable="false" />
+          <Property Name="Balance" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountTypeName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditCards">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="PinCode" Type="smallint" Nullable="false" />
+          <Property Name="CreditCardType" Type="int" Nullable="false" />
+          <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
+          <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditCardTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreditCardTypeName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="BirthDay" Type="date" />
+          <Property Name="Street" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="State" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="PostalCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="MobilePhone" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="WorkPhone" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmailAddress" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DebitCards">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="PinCode" Type="int" Nullable="false" />
+          <Property Name="DebitCardType" Type="int" Nullable="false" />
+          <Property Name="RegisteredDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DebitCardTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DebitCardTypeName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionAmount" Type="float" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="TransactionTypeID" Type="int" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionTypeName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transfers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransferAmount" Type="float" Nullable="false" />
+          <Property Name="Account1ID" Type="int" Nullable="false" />
+          <Property Name="Account2ID" Type="int" Nullable="false" />
+          <Property Name="TransferTypeID" Type="int" Nullable="false" />
+          <Property Name="TransferDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransferTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransferTypeName" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Accounts_To_AccountTypes">
+          <End Role="AccountTypes" Type="Self.AccountTypes" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="AccountTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_To_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CreditCards" Type="Self.CreditCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCards">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_CreditCardTypes">
+          <End Role="CreditCardTypes" Type="Self.CreditCardTypes" Multiplicity="1" />
+          <End Role="CreditCards" Type="Self.CreditCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditCardTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCards">
+              <PropertyRef Name="CreditCardType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="CreditCards" Type="Self.CreditCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCards">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="DebitCards" Type="Self.DebitCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCards">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="DebitCards" Type="Self.DebitCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCards">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_DebitCardTypes">
+          <End Role="DebitCardTypes" Type="Self.DebitCardTypes" Multiplicity="1" />
+          <End Role="DebitCards" Type="Self.DebitCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DebitCardTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCards">
+              <PropertyRef Name="DebitCardType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_To_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_To_TransactionTypes">
+          <End Role="TransactionTypes" Type="Self.TransactionTypes" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="TransactionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfers">
+              <PropertyRef Name="Account1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_Accounts1">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfers">
+              <PropertyRef Name="Account2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_TransferTypes">
+          <End Role="TransferTypes" Type="Self.TransferTypes" Multiplicity="1" />
+          <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransferTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfers">
+              <PropertyRef Name="TransferTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KanbModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountTypes" EntityType="Self.AccountTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditCards" EntityType="Self.CreditCards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditCardTypes" EntityType="Self.CreditCardTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DebitCards" EntityType="Self.DebitCards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DebitCardTypes" EntityType="Self.DebitCardTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionTypes" EntityType="Self.TransactionTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transfers" EntityType="Self.Transfers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransferTypes" EntityType="Self.TransferTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accounts_To_AccountTypes" Association="Self.FK_Accounts_To_AccountTypes">
+            <End Role="AccountTypes" EntitySet="AccountTypes" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_To_Customers" Association="Self.FK_Accounts_To_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_Accounts" Association="Self.FK_CreditCards_To_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CreditCards" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_CreditCardTypes" Association="Self.FK_CreditCards_To_CreditCardTypes">
+            <End Role="CreditCardTypes" EntitySet="CreditCardTypes" />
+            <End Role="CreditCards" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_Customers" Association="Self.FK_CreditCards_To_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CreditCards" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_Accounts" Association="Self.FK_DebitCards_To_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="DebitCards" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_Customers" Association="Self.FK_DebitCards_To_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="DebitCards" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_DebitCardTypes" Association="Self.FK_DebitCards_To_DebitCardTypes">
+            <End Role="DebitCardTypes" EntitySet="DebitCardTypes" />
+            <End Role="DebitCards" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_To_Accounts" Association="Self.FK_Transactions_To_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_To_TransactionTypes" Association="Self.FK_Transactions_To_TransactionTypes">
+            <End Role="TransactionTypes" EntitySet="TransactionTypes" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_Accounts" Association="Self.FK_Transfers_To_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transfers" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_Accounts1" Association="Self.FK_Transfers_To_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transfers" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_TransferTypes" Association="Self.FK_Transfers_To_TransferTypes">
+            <End Role="TransferTypes" EntitySet="TransferTypes" />
+            <End Role="Transfers" EntitySet="Transfers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KanbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="AccountTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Balance" Type="Single" Nullable="false" />
+          <NavigationProperty Name="AccountType" Relationship="KanbModel.FK_Accounts_To_AccountTypes" FromRole="Account" ToRole="AccountType" />
+          <NavigationProperty Name="Customer" Relationship="KanbModel.FK_Accounts_To_Customers" FromRole="Account" ToRole="Customer" />
+          <NavigationProperty Name="CreditCards" Relationship="KanbModel.FK_CreditCards_To_Accounts" FromRole="Account" ToRole="CreditCard" />
+          <NavigationProperty Name="DebitCards" Relationship="KanbModel.FK_DebitCards_To_Accounts" FromRole="Account" ToRole="DebitCard" />
+          <NavigationProperty Name="Transactions" Relationship="KanbModel.FK_Transactions_To_Accounts" FromRole="Account" ToRole="Transaction" />
+          <NavigationProperty Name="Transfers" Relationship="KanbModel.FK_Transfers_To_Accounts" FromRole="Account" ToRole="Transfer" />
+          <NavigationProperty Name="Transfers1" Relationship="KanbModel.FK_Transfers_To_Accounts1" FromRole="Account" ToRole="Transfer" />
+        </EntityType>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountTypeName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="KanbModel.FK_Accounts_To_AccountTypes" FromRole="AccountType" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="CreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="PinCode" Type="Int16" Nullable="false" />
+          <Property Name="CreditCardType" Type="Int32" Nullable="false" />
+          <Property Name="RegisteredDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="KanbModel.FK_CreditCards_To_Accounts" FromRole="CreditCard" ToRole="Account" />
+          <NavigationProperty Name="CreditCardType1" Relationship="KanbModel.FK_CreditCards_To_CreditCardTypes" FromRole="CreditCard" ToRole="CreditCardType" />
+          <NavigationProperty Name="Customer" Relationship="KanbModel.FK_CreditCards_To_Customers" FromRole="CreditCard" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="CreditCardType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreditCardTypeName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CreditCards" Relationship="KanbModel.FK_CreditCards_To_CreditCardTypes" FromRole="CreditCardType" ToRole="CreditCard" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDay" Type="DateTime" Precision="0" />
+          <Property Name="Street" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MobilePhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="RegisteredDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Accounts" Relationship="KanbModel.FK_Accounts_To_Customers" FromRole="Customer" ToRole="Account" />
+          <NavigationProperty Name="CreditCards" Relationship="KanbModel.FK_CreditCards_To_Customers" FromRole="Customer" ToRole="CreditCard" />
+          <NavigationProperty Name="DebitCards" Relationship="KanbModel.FK_DebitCards_To_Customers" FromRole="Customer" ToRole="DebitCard" />
+        </EntityType>
+        <EntityType Name="DebitCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="PinCode" Type="Int32" Nullable="false" />
+          <Property Name="DebitCardType" Type="Int32" Nullable="false" />
+          <Property Name="RegisteredDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="KanbModel.FK_DebitCards_To_Accounts" FromRole="DebitCard" ToRole="Account" />
+          <NavigationProperty Name="Customer" Relationship="KanbModel.FK_DebitCards_To_Customers" FromRole="DebitCard" ToRole="Customer" />
+          <NavigationProperty Name="DebitCardType1" Relationship="KanbModel.FK_DebitCards_To_DebitCardTypes" FromRole="DebitCard" ToRole="DebitCardType" />
+        </EntityType>
+        <EntityType Name="DebitCardType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DebitCardTypeName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DebitCards" Relationship="KanbModel.FK_DebitCards_To_DebitCardTypes" FromRole="DebitCardType" ToRole="DebitCard" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionAmount" Type="Double" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="KanbModel.FK_Transactions_To_Accounts" FromRole="Transaction" ToRole="Account" />
+          <NavigationProperty Name="TransactionType" Relationship="KanbModel.FK_Transactions_To_TransactionTypes" FromRole="Transaction" ToRole="TransactionType" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionTypeName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Transactions" Relationship="KanbModel.FK_Transactions_To_TransactionTypes" FromRole="TransactionType" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Transfer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransferAmount" Type="Double" Nullable="false" />
+          <Property Name="Account1ID" Type="Int32" Nullable="false" />
+          <Property Name="Account2ID" Type="Int32" Nullable="false" />
+          <Property Name="TransferTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TransferDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="KanbModel.FK_Transfers_To_Accounts" FromRole="Transfer" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="KanbModel.FK_Transfers_To_Accounts1" FromRole="Transfer" ToRole="Account" />
+          <NavigationProperty Name="TransferType" Relationship="KanbModel.FK_Transfers_To_TransferTypes" FromRole="Transfer" ToRole="TransferType" />
+        </EntityType>
+        <EntityType Name="TransferType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransferTypeName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Transfers" Relationship="KanbModel.FK_Transfers_To_TransferTypes" FromRole="TransferType" ToRole="Transfer" />
+        </EntityType>
+        <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
+          <EntitySet Name="CreditCards" EntityType="Self.CreditCard" />
+          <EntitySet Name="CreditCardTypes" EntityType="Self.CreditCardType" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DebitCards" EntityType="Self.DebitCard" />
+          <EntitySet Name="DebitCardTypes" EntityType="Self.DebitCardType" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="TransactionTypes" EntityType="Self.TransactionType" />
+          <EntitySet Name="Transfers" EntityType="Self.Transfer" />
+          <EntitySet Name="TransferTypes" EntityType="Self.TransferType" />
+          <AssociationSet Name="FK_Accounts_To_AccountTypes" Association="KanbModel.FK_Accounts_To_AccountTypes">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_To_Customers" Association="KanbModel.FK_Accounts_To_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_Accounts" Association="KanbModel.FK_CreditCards_To_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="CreditCard" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_CreditCardTypes" Association="KanbModel.FK_CreditCards_To_CreditCardTypes">
+            <End Role="CreditCardType" EntitySet="CreditCardTypes" />
+            <End Role="CreditCard" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditCards_To_Customers" Association="KanbModel.FK_CreditCards_To_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CreditCard" EntitySet="CreditCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_Accounts" Association="KanbModel.FK_DebitCards_To_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="DebitCard" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_Customers" Association="KanbModel.FK_DebitCards_To_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="DebitCard" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitCards_To_DebitCardTypes" Association="KanbModel.FK_DebitCards_To_DebitCardTypes">
+            <End Role="DebitCardType" EntitySet="DebitCardTypes" />
+            <End Role="DebitCard" EntitySet="DebitCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_To_Accounts" Association="KanbModel.FK_Transactions_To_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_Accounts" Association="KanbModel.FK_Transfers_To_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_Accounts1" Association="KanbModel.FK_Transfers_To_Accounts1">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_To_TransactionTypes" Association="KanbModel.FK_Transactions_To_TransactionTypes">
+            <End Role="TransactionType" EntitySet="TransactionTypes" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_To_TransferTypes" Association="KanbModel.FK_Transfers_To_TransferTypes">
+            <End Role="TransferType" EntitySet="TransferTypes" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Accounts_To_AccountTypes">
+          <End Type="KanbModel.AccountType" Role="AccountType" Multiplicity="1" />
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="AccountTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_To_Customers">
+          <End Type="KanbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_Accounts">
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="KanbModel.CreditCard" Role="CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_CreditCardTypes">
+          <End Type="KanbModel.CreditCardType" Role="CreditCardType" Multiplicity="1" />
+          <End Type="KanbModel.CreditCard" Role="CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditCardType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="CreditCardType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditCards_To_Customers">
+          <End Type="KanbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="KanbModel.CreditCard" Role="CreditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CreditCard">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_Accounts">
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="KanbModel.DebitCard" Role="DebitCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCard">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_Customers">
+          <End Type="KanbModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="KanbModel.DebitCard" Role="DebitCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCard">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitCards_To_DebitCardTypes">
+          <End Type="KanbModel.DebitCardType" Role="DebitCardType" Multiplicity="1" />
+          <End Type="KanbModel.DebitCard" Role="DebitCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DebitCardType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitCard">
+              <PropertyRef Name="DebitCardType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_To_Accounts">
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="KanbModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_Accounts">
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="KanbModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="Account1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_Accounts1">
+          <End Type="KanbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="KanbModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="Account2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_To_TransactionTypes">
+          <End Type="KanbModel.TransactionType" Role="TransactionType" Multiplicity="1" />
+          <End Type="KanbModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="TransactionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_To_TransferTypes">
+          <End Type="KanbModel.TransferType" Role="TransferType" Multiplicity="1" />
+          <End Type="KanbModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransferType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="TransferTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KanbModelStoreContainer" CdmEntityContainer="masterEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="KanbModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="KanbModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccountTypeName" ColumnName="AccountTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditCards">
+            <EntityTypeMapping TypeName="KanbModel.CreditCard">
+              <MappingFragment StoreEntitySet="CreditCards">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="CreditCardType" ColumnName="CreditCardType" />
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditCardTypes">
+            <EntityTypeMapping TypeName="KanbModel.CreditCardType">
+              <MappingFragment StoreEntitySet="CreditCardTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreditCardTypeName" ColumnName="CreditCardTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="KanbModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DebitCards">
+            <EntityTypeMapping TypeName="KanbModel.DebitCard">
+              <MappingFragment StoreEntitySet="DebitCards">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="DebitCardType" ColumnName="DebitCardType" />
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DebitCardTypes">
+            <EntityTypeMapping TypeName="KanbModel.DebitCardType">
+              <MappingFragment StoreEntitySet="DebitCardTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DebitCardTypeName" ColumnName="DebitCardTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="KanbModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionTypes">
+            <EntityTypeMapping TypeName="KanbModel.TransactionType">
+              <MappingFragment StoreEntitySet="TransactionTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransactionTypeName" ColumnName="TransactionTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transfers">
+            <EntityTypeMapping TypeName="KanbModel.Transfer">
+              <MappingFragment StoreEntitySet="Transfers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransferAmount" ColumnName="TransferAmount" />
+                <ScalarProperty Name="Account1ID" ColumnName="Account1ID" />
+                <ScalarProperty Name="Account2ID" ColumnName="Account2ID" />
+                <ScalarProperty Name="TransferTypeID" ColumnName="TransferTypeID" />
+                <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransferTypes">
+            <EntityTypeMapping TypeName="KanbModel.TransferType">
+              <MappingFragment StoreEntitySet="TransferTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransferTypeName" ColumnName="TransferTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
