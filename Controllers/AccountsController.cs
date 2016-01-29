@@ -10,7 +10,7 @@ using KanbWeb.Models;
 
 namespace KanbWeb.Controllers
 {
-    [Authorize()]
+    //[Authorize()]
     public class AccountsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
